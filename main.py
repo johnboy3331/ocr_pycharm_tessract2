@@ -38,9 +38,19 @@
 
 #downloaded from https://github.com/UB-Mannheim/tesseract/wiki , then run installer
 
+'''
+some installations 
 
+pip install pytesseract
+pip install pillow
+pip install wheel setuptools
+pip install gTTS
+pip install ipython
+'''
 import pytesseract
 import cv2
+from gtts import gTTS
+import IPython.display as ipd
 # import matplotlib as plt
 
 pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
@@ -69,4 +79,12 @@ def extract_ar_text(image_url):
 
 url_text='images/eng+ara.PNG'
 
-extract_ar_text(url_text)
+# extract_ar_text(url_text)
+# trying audio , uncomment above line
+
+text = pytesseract.image_to_string(url_text, lang='ara')
+
+tts = gTTS(text, lang='ar')
+tts.save('text_to_audio.mp3')
+audio_path="text_to_audio.mp3"
+ipd.Audio(audio_path, autoplay=True)
